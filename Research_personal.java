@@ -17,11 +17,9 @@ public class Research_personal extends Employee {
 
 	@Override
 	public String toString() {
-		return "Research_personal{" +
-				"social_security_number=" + social_security_number +
-				", name='" + name + '\'' +
-				", email='" + email + '\'' +
-				", research_area='" + research_area + '\''+
-				'}';
+		return  "Социальный код: \t" + social_security_number +
+				",\t Имя: \t" + name +
+				",\t E- mail: \t" + email +
+				",\t Область исследований: \t" + research_area;
 	}
 }

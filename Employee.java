@@ -10,6 +10,10 @@ public class Employee {
 		this.email = email;
 	}
 
+	public Employee() {
+
+	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
@@ -36,10 +40,9 @@ public class Employee {
 
 	@Override
 	public String toString() {
-		return "Employee{\n" +
-				"social_security_number=" + social_security_number +
-				", name='" + name + '\'' +
-				", email='" + email + '\'' +
-				'}';
+		return "Сотрудники: \n" +
+				"\t Социальный номер: \t" + social_security_number +
+				"\t Имя: \t" + name  +
+				"\t Почта: \t" + email;
 	}
 }

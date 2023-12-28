@@ -38,16 +38,74 @@ public class Main {
         University university = new University(employers, faculties);
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println(university);
-
-//        System.out.println("Enter command: ");
-//        System.out.printf("%-10s %-20s %-30s", "1 - Add university\t",
-//                "2 - All universities\t", "3 - Info about university\n");
-//        System.out.println();
-//        String c = scanner.next();
-//        switch (c){
-//            case "1":
-//
-//        }
+        String c = "";
+        while (!c.equals("5")){
+            System.out.println("Введите команду: ");
+            System.out.printf("1 - Добавить факультет\t" +
+                    "2 - Добавить кафедру\t" + "3 - Добавить сотрудника\n" + "4 - Информация об университете\t" +
+                    "5 - Завершить программу\t");
+            System.out.println();
+            c = scanner.next();
+            switch (c){
+                case "1":
+                    String n = scanner.next("Название: ");
+                    String n0 = "";
+                    ArrayList<Institute> il = new ArrayList<>();
+                    while (!n0.equals("стоп")){
+                        n0 = scanner.next("(Введите стоп, если хотите закончить ввод кафедр) Название кафедры: ");
+                        Institute i = new Institute();
+                        i.setName(n0);
+                        n0 = scanner.next("Адрес кафедры: ");
+                        i.setAddress(n0);
+                        ArrayList<Project> p = new ArrayList<>();
+                        i.setProjects(p);
+                        ArrayList<Research_personal> rp = new ArrayList<>();
+                        i.setResearch_personal(rp);
+                        il.add(i);
+                    }
+                    String n1 = scanner.next("Социальный код декана: ");
+                    for (Employee e : employers){
+                        if (String.valueOf(e.getSocial_security_number()).equals(n1)){
+                            Dean nd = new Dean((Research_personal) e);
+                            Faculty nf = new Faculty(n, nd, il);
+                            break;
+                        }
+                    }
+                case "2":
+                    String q = scanner.next("Название факультета: ");
+                    boolean isFacultyExist = false;
+                    for (Faculty f : faculties){
+                        if (Objects.equals(f.getName(), q)){
+                            isFacultyExist = true;
+                            break;
+                        }
+                    }
+                    if (isFacultyExist){
+                        n0 = scanner.next("Название кафедры: ");
+                        Institute i = new Institute();
+                        i.setName(n0);
+                        n0 = scanner.next("Адрес кафедры: ");
+                        i.setAddress(n0);
+                        ArrayList<Project> p = new ArrayList<>();
+                        i.setProjects(p);
+                        ArrayList<Research_personal> rp = new ArrayList<>();
+                        i.setResearch_personal(rp);
+                        university.getFacultyByName(q).addInstitute(i);
+                    } else {
+                        System.out.println("Такого факультета не существует");
+                    }
+                case "3":
+                    Employee emp = new Employee();
+                    System.out.println("Социальный код: ");
+                    emp.setSocial_security_number(scanner.nextInt());
+                    System.out.println("Имя: ");
+                    emp.setName(scanner.next());
+                    System.out.println("Почта: ");
+                    emp.setEmail(scanner.next());
+                    employers.add(emp);
+                case "4":
+                    System.out.println(university);
+            }
+        }
     }
 }

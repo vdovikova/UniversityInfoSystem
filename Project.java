@@ -65,11 +65,10 @@ public class Project {
 
 	@Override
 	public String toString() {
-		return "Project{" + "name=" + name +
-				", hours=" + hours +
-				", starting_date=" + starting_date +
-				", end_date=" + end_date +
-				", research_personal=" + research_personal +
-				'}';
+		return "\n\t\t\t\t Название проекта: " + name +
+				"\n\t\t\t\t Часы: \t" + hours +
+				"\n\t\t\t\t Дата начала: \t" + starting_date +
+				"\n\t\t\t\t Дата окончания: \t" + end_date +
+				"\n\t\t\t\t Вовлеченный персонал: \t" + research_personal;
 	}
 }

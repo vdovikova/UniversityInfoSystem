@@ -185,9 +185,8 @@ public class University {
 	@Override
 	public String toString() {
 		return "ИНФОРМАЦИОННАЯ СИСТЕМА УНИВЕРСИТЕТА\n" +
-				"Сотрудники: \n" + employers +
-				",\n" + "Количество сотрудников: \t " + number_of_employers +
-				"\n" + "Факультеты: \n" + faculties +
-				'}';
+				"\t Сотрудники: \n" + employers +
+				"\n \t Количество сотрудников: " + number_of_employers +
+				"\n \t Факультеты: \n" + faculties;
 	}
 }

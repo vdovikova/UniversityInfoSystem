@@ -110,10 +110,8 @@ public class Faculty {
 
 	@Override
 	public String toString() {
-		return "Faculty{" +
-				"name='" + name + '\'' +
-				", dean=" + dean +
-				", institutes=" + institutes +
-				'}';
+		return "\t\tНазвание: " + name +
+				"\n\t\tДекан: " + dean.name +
+				"\n\t\tКафедры: " + institutes;
 	}
 }

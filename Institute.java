@@ -116,11 +116,9 @@ public class Institute {
 
 	@Override
 	public String toString() {
-		return "Institute{" +
-				"name='" + name + '\'' +
-				", address='" + address + '\'' +
-				", projects=" + projects +
-				", research_personal=" + research_personal +
-				'}';
+		return "\n\t\t\t Название: " + name +
+				"\n\t\t\t Адрес: " + address +
+				"\n\t\t\t Проекты: " + projects +
+				"\n\t\t\t Работники кафедры: \n\t\t\t\t" + research_personal;
 	}
 }
