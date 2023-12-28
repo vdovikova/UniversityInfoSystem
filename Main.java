@@ -48,14 +48,17 @@ public class Main {
             c = scanner.next();
             switch (c){
                 case "1":
-                    String n = scanner.next("Название: ");
+                    System.out.println("Название: ");
+                    String n = scanner.next();
                     String n0 = "";
                     ArrayList<Institute> il = new ArrayList<>();
                     while (!n0.equals("стоп")){
-                        n0 = scanner.next("(Введите стоп, если хотите закончить ввод кафедр) Название кафедры: ");
+                        System.out.println("(Введите 'стоп', если хотите закончить ввод кафедр) Название кафедры: ");
+                        n0 = scanner.next();
                         Institute i = new Institute();
                         i.setName(n0);
-                        n0 = scanner.next("Адрес кафедры: ");
+                        System.out.println("Адрес кафедры: ");
+                        n0 = scanner.next();
                         i.setAddress(n0);
                         ArrayList<Project> p = new ArrayList<>();
                         i.setProjects(p);
@@ -63,7 +66,8 @@ public class Main {
                         i.setResearch_personal(rp);
                         il.add(i);
                     }
-                    String n1 = scanner.next("Социальный код декана: ");
+                    System.out.println("Социальный код декана: ");
+                    String n1 = scanner.next();
                     for (Employee e : employers){
                         if (String.valueOf(e.getSocial_security_number()).equals(n1)){
                             Dean nd = new Dean((Research_personal) e);
@@ -71,8 +75,10 @@ public class Main {
                             break;
                         }
                     }
+                    break;
                 case "2":
-                    String q = scanner.next("Название факультета: ");
+                    System.out.println("Название факультета: ");
+                    String q = scanner.next();
                     boolean isFacultyExist = false;
                     for (Faculty f : faculties){
                         if (Objects.equals(f.getName(), q)){
@@ -81,10 +87,12 @@ public class Main {
                         }
                     }
                     if (isFacultyExist){
-                        n0 = scanner.next("Название кафедры: ");
+                        System.out.println("Название кафедры: ");
+                        n0 = scanner.next();
                         Institute i = new Institute();
                         i.setName(n0);
-                        n0 = scanner.next("Адрес кафедры: ");
+                        System.out.println("Адрес кафедры: ");
+                        n0 = scanner.next();
                         i.setAddress(n0);
                         ArrayList<Project> p = new ArrayList<>();
                         i.setProjects(p);
@@ -93,7 +101,9 @@ public class Main {
                         university.getFacultyByName(q).addInstitute(i);
                     } else {
                         System.out.println("Такого факультета не существует");
+                        break;
                     }
+                    break;
                 case "3":
                     Employee emp = new Employee();
                     System.out.println("Социальный код: ");
@@ -103,6 +113,7 @@ public class Main {
                     System.out.println("Почта: ");
                     emp.setEmail(scanner.next());
                     employers.add(emp);
+                    break;
                 case "4":
                     System.out.println(university);
             }
