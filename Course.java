@@ -36,10 +36,8 @@ public class Course {
 
 	@Override
 	public String toString() {
-		return "Course{" +
-				"unique_number=" + unique_number +
-				", name=" + name +
-				", weekly_duration=" + weekly_duration +
-				'}';
+		return "Номер курса: " + unique_number +
+				" Название курса: " + name +
+				" Длительность: " + weekly_duration;
 	}
 }

@@ -1,119 +1,98 @@
-import java.nio.charset.StandardCharsets;
+
 import java.util.*;
 
 public class Main {
 
     public static void main(String[] args){
 
+        ArrayList<Employee> employers = new ArrayList<>();
+        ArrayList<Faculty> faculties = new ArrayList<>();
+        University university = new University(employers, faculties);
+        ArrayList<Research_personal> researchers = new ArrayList<>();
+
         Research_personal employee1 = new Research_personal(1, "Иван Иванович Иванов",
                 "ivanov@ya.ru", "Органическая химия");
-
-        ArrayList<Employee> employers = new ArrayList<>();
-        employers.add(employee1);
-        ArrayList<Research_personal> researchers = new ArrayList<>();
+        university.addEmployee(employee1);
         researchers.add(employee1);
-
-        Course course1 = new Course(1, "Коллоидная химия", 10);
-        Course course2 = new Course(2, "Органическая химия", 10);
-        ArrayList<Course> courses = new ArrayList<>();
-        courses.add(course1);
-        courses.add(course2);
-
-        Project project1 = new Project(120, "Исследование белков",
-                new Date(2024, 3, 12),  new Date(2025, 3, 12), researchers);
-        ArrayList<Project> projects = new ArrayList<>();
-        projects.add(project1);
-
-        Institute institute1 = new Institute("Органической химии", "Береговая, 2",
-                                            projects, researchers);
-        ArrayList<Institute> institutes = new ArrayList<>();
-        institutes.add(institute1);
-
         Dean dean = new Dean(employee1);
 
-        Faculty faculty1 = new Faculty("Химии", dean, institutes);
-        ArrayList<Faculty> faculties = new ArrayList<>();
-        faculties.add(faculty1);
-
-        University university = new University(employers, faculties);
+        university.addFaculty("Химии", dean);
+        university.getFacultyByName("Химии").addInstitute("Органической химии", "Береговая, 2");
+        university.getFacultyByName("Химии").getInstituteByName("Органической химии").setResearch_personal(researchers);
+        university.getFacultyByName("Химии").getInstituteByName("Органической химии").addProject(120, "Исследование белков",
+                new Date(2024, 3, 12),  new Date(2025, 3, 12), new int[]{1});
+        university.getFacultyByName("Химии").getInstituteByName("Органической химии").addCourse(1,
+                "Коллоидная химия", 10);
+        university.getFacultyByName("Химии").getInstituteByName("Органической химии").addCourse(2,
+                "Органическая химия", 10);
 
         Scanner scanner = new Scanner(System.in);
         String c = "";
         while (!c.equals("5")){
             System.out.println("Введите команду: ");
-            System.out.printf("1 - Добавить факультет\t" +
-                    "2 - Добавить кафедру\t" + "3 - Добавить сотрудника\n" + "4 - Информация об университете\t" +
+            System.out.println("1 - Добавить факультет\t" +
+                    "2 - Добавить кафедры\t" + "3 - Добавить сотрудника\n" + "4 - Информация об университете\t" +
                     "5 - Завершить программу\t");
-            System.out.println();
             c = scanner.next();
             switch (c){
+//                Добавить факультет
                 case "1":
-                    System.out.println("Название: ");
-                    String n = scanner.next();
-                    String n0 = "";
-                    ArrayList<Institute> il = new ArrayList<>();
-                    while (!n0.equals("стоп")){
-                        System.out.println("(Введите 'стоп', если хотите закончить ввод кафедр) Название кафедры: ");
-                        n0 = scanner.next();
-                        Institute i = new Institute();
-                        i.setName(n0);
-                        System.out.println("Адрес кафедры: ");
-                        n0 = scanner.next();
-                        i.setAddress(n0);
-                        ArrayList<Project> p = new ArrayList<>();
-                        i.setProjects(p);
-                        ArrayList<Research_personal> rp = new ArrayList<>();
-                        i.setResearch_personal(rp);
-                        il.add(i);
-                    }
+                    System.out.println("Название факультета: ");
+                    String facName = scanner.next();
+
                     System.out.println("Социальный код декана: ");
-                    String n1 = scanner.next();
+                    String deanSocNum = scanner.next();
                     for (Employee e : employers){
-                        if (String.valueOf(e.getSocial_security_number()).equals(n1)){
-                            Dean nd = new Dean((Research_personal) e);
-                            Faculty nf = new Faculty(n, nd, il);
+                        if (String.valueOf(e.getSocial_security_number()).equals(deanSocNum)){
+                            Dean newDean = new Dean((Research_personal) e);
+                            university.addFaculty(facName, newDean);
                             break;
+                        } else {
+                            System.out.println("Нет такого сотрудника");
                         }
                     }
                     break;
+                // Добавить кафедру
                 case "2":
-                    System.out.println("Название факультета: ");
-                    String q = scanner.next();
+                    System.out.println("Название кафедры: ");
+                    String fName = scanner.next();
                     boolean isFacultyExist = false;
-                    for (Faculty f : faculties){
-                        if (Objects.equals(f.getName(), q)){
+                    int facIndex = 0;
+                    for (Faculty f : university.getFaculties()){
+                        if (Objects.equals(f.getName(), fName)){
                             isFacultyExist = true;
+                            facIndex = university.getFaculties().indexOf(f);
                             break;
                         }
                     }
                     if (isFacultyExist){
-                        System.out.println("Название кафедры: ");
-                        n0 = scanner.next();
-                        Institute i = new Institute();
-                        i.setName(n0);
-                        System.out.println("Адрес кафедры: ");
-                        n0 = scanner.next();
-                        i.setAddress(n0);
-                        ArrayList<Project> p = new ArrayList<>();
-                        i.setProjects(p);
-                        ArrayList<Research_personal> rp = new ArrayList<>();
-                        i.setResearch_personal(rp);
-                        university.getFacultyByName(q).addInstitute(i);
+                        String instName = "";
+                        while (!instName.equals("стоп")){
+                            System.out.println("(Введите 'стоп', если хотите закончить ввод кафедр) Название кафедры: ");
+                            instName = scanner.next();
+                            System.out.println("Адрес кафедры: ");
+                            String instAddress = scanner.next();
+                            university.getFaculties().get(facIndex).addInstitute(instName, instAddress);
+                        }
                     } else {
                         System.out.println("Такого факультета не существует");
                         break;
                     }
                     break;
+                // Добавить сотрудника
                 case "3":
-                    Employee emp = new Employee();
                     System.out.println("Социальный код: ");
-                    emp.setSocial_security_number(scanner.nextInt());
+                    int socNum = scanner.nextInt();
                     System.out.println("Имя: ");
-                    emp.setName(scanner.next());
+                    String fname = scanner.next();
+                    String secname = scanner.next();
+                    String surname = scanner.next();
+                    String name = fname + " " + secname + " " + surname;
                     System.out.println("Почта: ");
-                    emp.setEmail(scanner.next());
-                    employers.add(emp);
+                    String email = scanner.next();
+                    university.addEmployee(socNum, name, email);
                     break;
+                // инфо об университете
                 case "4":
                     System.out.println(university);
             }

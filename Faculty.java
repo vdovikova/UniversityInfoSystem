@@ -13,6 +13,12 @@ public class Faculty {
 		this.institutes = institutes;
 	}
 
+	Faculty(String name, Dean dean){
+		this.name = name;
+		this.dean = dean;
+		this.institutes = new ArrayList<Institute>();
+	}
+
     public Faculty() {
 
     }
@@ -64,10 +70,9 @@ public class Faculty {
 			Institute institute = new Institute();
 			institute.setAddress(address);
 			institute.setName(name);
-			ArrayList<Research_personal> rp = new ArrayList<>();
-			ArrayList<Project> pr = new ArrayList<>();
-			institute.setResearch_personal(rp);
-			institute.setProjects(pr);
+			institute.setResearch_personal(new ArrayList<Research_personal>());
+			institute.setProjects(new ArrayList<Project>());
+			institute.setCourses(new ArrayList<Course>());
 			institutes.add(institute);
 			System.out.println("Institute " + name + " successfully added");
 		} else {
