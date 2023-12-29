@@ -4,6 +4,7 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args){
+
         ArrayList<Employee> employers = new ArrayList<>();
         ArrayList<Faculty> faculties = new ArrayList<>();
         University university = new University(employers, faculties);
